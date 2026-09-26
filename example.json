@@ -1,0 +1,49 @@
+{
+  "schema": {
+    "port": {
+      "type": "int",
+      "default": 8000
+    },
+    "label": {
+      "type": "str"
+    },
+    "tags": {
+      "type": "strings",
+      "default": [
+        "blue"
+      ]
+    }
+  },
+  "layers": [
+    {
+      "name": "deployment",
+      "ops": [
+        {
+          "op": "set",
+          "key": "port",
+          "value": {
+            "env": "PORT"
+          }
+        },
+        {
+          "op": "set",
+          "key": "label",
+          "value": {
+            "template": "service:${port}"
+          }
+        },
+        {
+          "op": "append",
+          "key": "tags",
+          "value": [
+            "canary",
+            "blue"
+          ]
+        }
+      ]
+    }
+  ],
+  "env": {
+    "PORT": "8080"
+  }
+}
